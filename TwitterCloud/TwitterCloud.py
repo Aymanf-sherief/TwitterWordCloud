@@ -4,8 +4,10 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
+import arabic_reshaper
 import matplotlib.pyplot as plt
 import tweepy
+from bidi.algorithm import get_display
 from wordcloud import WordCloud, STOPWORDS
 
 
@@ -117,7 +119,7 @@ class TwitterCloud:
         return word_counts
 
     def generate_word_cloud(self, list_to_use='both', n_max_words=50,
-                            filename=f"plot-{datetime.now().split('.')[0]}.png", show=True):
+                            filename=f"plot-{str(datetime.now()).split('.')[0]}.png", show=True):
         """
         generate the word cloud plot and saves it to a .png image
         :param list_to_use: String, optional, name of list to use [tweets, dms, both]
@@ -133,9 +135,10 @@ class TwitterCloud:
             text_list = self.tweets + self.dms
 
         text = " ".join(text_list).lower()
-        text = ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", text).split())
-
-        font_path = os.path.join(os.path.dirname(__file__), "fonts/arabic-english.ttf")
+        text = ' '.join(re.sub('((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)', " ", text).split())
+        text = arabic_reshaper.reshape(text)
+        text = get_display(text)
+        font_path = os.path.join(os.path.dirname(__file__), "fonts/Ar-En-Regular.ttf")
 
         wordcloud = WordCloud(font_path=font_path,
                               width=800, height=800,
