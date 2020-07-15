@@ -3,5 +3,5 @@
 ## Installation:
 `pip install twitter-word-cloud`
 
-# #usage
+## usage
 Checkout `example.py`
