@@ -3,3 +3,4 @@ keys.json
 *.idea
 __pycache__
 dist
+*.pyc
