@@ -1,6 +1,6 @@
 import json
 
-from TwitterCloud.TwitterCloud import TwitterCloud
+from twitter_word_cloud import TwitterCloud
 
 keys = json.load(open('keys.json'))
 
