@@ -1,1 +1,5 @@
 keys.json
+*.egg-info
+*.idea
+__pycache__
+dist
